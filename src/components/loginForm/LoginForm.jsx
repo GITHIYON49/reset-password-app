@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router";
 import { toast } from "react-toastify";
-import { Mail, RectangleEllipsis } from "lucide-react";
+import { Mail, RectangleEllipsis,Loader2 } from "lucide-react";
 
 function LoginForm() {
   const [data, setData] = useState({
