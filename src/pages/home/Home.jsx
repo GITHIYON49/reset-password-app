@@ -4,7 +4,7 @@ function Home() {
   return (
     <>
       <div className="h-screen w-full flex items-center justify-center">
-        <h1 className="text-4xl capitalize">
+        <h1 className="text-4xl capitalize text-center">
           Welcome to <span className="text-blue-600">home page</span>
         </h1>
       </div>
