@@ -2,13 +2,15 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router";
 import { toast } from "react-toastify";
-import { Mail,RectangleEllipsis } from "lucide-react";
+import { Mail, RectangleEllipsis } from "lucide-react";
 
 function LoginForm() {
   const [data, setData] = useState({
     email: "",
     password: "",
   });
+  setLoading(true);
+  const [loading, setLoading] = useState(false);
 
   const navigation = useNavigate();
 
@@ -27,6 +29,8 @@ function LoginForm() {
       }
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -48,17 +52,17 @@ function LoginForm() {
               Email
             </label>
             <div className="w-full relative">
-            <input
-              type="email"
-              id="email"
-              placeholder="Enter Your Email"
-              className="w-full ring-1 ring-gray-500 rounded-sm px-3 py-2 outline-none border-none"
-              value={data.email}
-              onChange={(e) => {
-                setData({ ...data, email: e.target.value });
-              }}
-            />
-             <Mail className="absolute top-1/2 -translate-y-1/2 right-2 size-5 md:size-6 text-gray-500" />
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter Your Email"
+                className="w-full ring-1 ring-gray-500 rounded-sm px-3 py-2 outline-none border-none"
+                value={data.email}
+                onChange={(e) => {
+                  setData({ ...data, email: e.target.value });
+                }}
+              />
+              <Mail className="absolute top-1/2 -translate-y-1/2 right-2 size-5 md:size-6 text-gray-500" />
             </div>
           </div>
           <div className="flex flex-col items-start justify-center gap-1">
@@ -69,24 +73,32 @@ function LoginForm() {
               Password
             </label>
             <div className="w-full relative">
-            <input
-            id="password"
-              type="password"
-              placeholder="Enter Your Password"
-              className="w-full ring-1 ring-gray-500 rounded-sm px-3 py-2 outline-none border-none"
-              value={data.password}
-              onChange={(e) => {
-                setData({ ...data, password: e.target.value });
-              }}
-            />
-            <RectangleEllipsis className="absolute top-1/2 -translate-y-1/2 right-2 size-5 md:size-6 text-gray-500" />
+              <input
+                id="password"
+                type="password"
+                placeholder="Enter Your Password"
+                className="w-full ring-1 ring-gray-500 rounded-sm px-3 py-2 outline-none border-none"
+                value={data.password}
+                onChange={(e) => {
+                  setData({ ...data, password: e.target.value });
+                }}
+              />
+              <RectangleEllipsis className="absolute top-1/2 -translate-y-1/2 right-2 size-5 md:size-6 text-gray-500" />
             </div>
           </div>
           <button
             type="submit"
-            className="w-full bg-gray-900 text-white py-2 text-lg capitalize cursor-pointer rounded-sm border-none outline-none hover:bg-gray-800 transition-all duration-200 ease-in-out mt-5"
+            disabled={loading}
+            className="w-full bg-gray-900 text-white py-2 text-lg capitalize rounded-sm border-none outline-none hover:bg-gray-800 transition-all duration-200 ease-in-out mt-5 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
-            Login
+            {loading ? (
+              <>
+                <Loader2 className="size-5 animate-spin" />
+                loading...
+              </>
+            ) : (
+              "Login"
+            )}
           </button>
           <p>
             Already have an account <br />{" "}

@@ -2,16 +2,18 @@ import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
-import { Mail, UserRound, RectangleEllipsis } from "lucide-react";
+import { Mail, UserRound, RectangleEllipsis, Loader2 } from "lucide-react";
 function RegisterForm() {
   const [data, setData] = useState({
     name: "",
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const { name, email, password } = data;
 
     try {
@@ -29,6 +31,8 @@ function RegisterForm() {
       }
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -92,7 +96,7 @@ function RegisterForm() {
             </label>
             <div className="w-full relative">
               <input
-              id="password"
+                id="password"
                 type="password"
                 name="password"
                 autoComplete="on"
@@ -108,9 +112,17 @@ function RegisterForm() {
           </div>
           <button
             type="submit"
-            className="w-full bg-gray-900 text-white py-2 text-lg capitalize cursor-pointer rounded-sm border-none outline-none hover:bg-gray-800 transition-all duration-200 ease-in-out mt-5"
+            disabled={loading}
+            className="w-full bg-gray-900 text-white py-2 text-lg capitalize rounded-sm border-none outline-none hover:bg-gray-800 transition-all duration-200 ease-in-out mt-5 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
-            submit
+            {loading ? (
+              <>
+                <Loader2 className="size-5 animate-spin" />
+                loading...
+              </>
+            ) : (
+              "Send"
+            )}
           </button>
         </form>
       </section>
