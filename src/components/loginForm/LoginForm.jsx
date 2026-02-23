@@ -9,13 +9,14 @@ function LoginForm() {
     email: "",
     password: "",
   });
-  setLoading(true);
+  
   const [loading, setLoading] = useState(false);
 
   const navigation = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const { email, password } = data;
     try {
       const { data } = await axios.post("/api/auth/login", { email, password });
