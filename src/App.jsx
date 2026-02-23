@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router";
 
 function App() {
-  axios.defaults.baseURL = process.env.BACKEND_URL;
+  axios.defaults.baseURL = import.meta.env.VITE_API_URL;
   axios.defaults.withCredentials = true;
 
   const navigation = useNavigate();
