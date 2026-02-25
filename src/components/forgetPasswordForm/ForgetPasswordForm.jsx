@@ -12,6 +12,10 @@ function ForgetPasswordForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!email || !email.includes("@")) {
+      toast.error("Please enter a valid email");
+      return;
+    }
     setLoading(true);
     try {
       const { data } = await axios.post("/api/auth/forgot-Password", { email });
