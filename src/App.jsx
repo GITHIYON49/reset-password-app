@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 
 function App() {
   axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+  //  axios.defaults.baseURL = "http://localhost:5000/"
   axios.defaults.withCredentials = true;
 
   const navigation = useNavigate();
